@@ -37,12 +37,8 @@ export const NotesProvider = ({ children }) => {
     setNotes((currentNotes) => [...currentNotes, note]);
   };
 
-  const removeNote = (id) => {
-    setNotes((currentNotes) => currentNotes.filter((note) => note.id !== id));
-  };
-
   return (
-    <NotesContext.Provider value={{ notes, addNote, removeNote }}>
+    <NotesContext.Provider value={{ notes, addNote }}>
       {children}
     </NotesContext.Provider>
   );

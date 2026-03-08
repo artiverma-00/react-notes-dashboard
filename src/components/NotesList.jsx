@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNotes } from "../context/NotesContext";
 
 const NotesList = () => {
-  const { notes, removeNote } = useNotes();
+  const { notes } = useNotes();
   const [selectedNoteId, setSelectedNoteId] = useState(null);
 
   if (notes.length === 0) {
@@ -21,19 +21,6 @@ const NotesList = () => {
             className={selectedNoteId === note.id ? "selected-note" : ""}
           >
             <span>{note.text}</span>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                removeNote(note.id);
-
-                if (selectedNoteId === note.id) {
-                  setSelectedNoteId(null);
-                }
-              }}
-            >
-              Delete
-            </button>
           </li>
         ))}
       </ul>
