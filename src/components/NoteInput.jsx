@@ -1,9 +1,9 @@
-import { useState, useContext, useRef, useEffect } from "react";
-import { NotesContext } from "../context/NotesContext";
+import { useEffect, useRef, useState } from "react";
+import { useNotes } from "../context/NotesContext";
 
 const NoteInput = () => {
   const [input, setInput] = useState("");
-  const { addNote } = useContext(NotesContext);
+  const { addNote } = useNotes();
   const inputRef = useRef(null);
 
   // focus input when page loads
@@ -12,14 +12,12 @@ const NoteInput = () => {
   }, []);
 
   const handleAdd = () => {
-    if (input.trim() === "") return;
-
     addNote(input);
     setInput("");
   };
 
   return (
-    <div>
+    <div className="note-input">
       <input
         ref={inputRef}
         type="text"

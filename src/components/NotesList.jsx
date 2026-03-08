@@ -1,25 +1,39 @@
-import { useContext, useState } from "react";
-import { NotesContext } from "../context/NotesContext";
+import { useState } from "react";
+import { useNotes } from "../context/NotesContext";
 
 const NotesList = () => {
-  const { notes } = useContext(NotesContext);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const { notes, removeNote } = useNotes();
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
+
+  if (notes.length === 0) {
+    return <p className="empty-state">No notes yet. Add your first note.</p>;
+  }
 
   return (
     <div>
       <h3>Notes</h3>
 
-      <ul>
-        {notes.map((note, index) => (
+      <ul className="notes-list">
+        {notes.map((note) => (
           <li
-            key={index}
-            onClick={() => setSelectedIndex(index)}
-            style={{
-              cursor: "pointer",
-              backgroundColor: selectedIndex === index ? "yellow" : "white",
-            }}
+            key={note.id}
+            onClick={() => setSelectedNoteId(note.id)}
+            className={selectedNoteId === note.id ? "selected-note" : ""}
           >
-            {note}
+            <span>{note.text}</span>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                removeNote(note.id);
+
+                if (selectedNoteId === note.id) {
+                  setSelectedNoteId(null);
+                }
+              }}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>

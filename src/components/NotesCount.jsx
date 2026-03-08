@@ -1,14 +1,14 @@
-import { useContext, useMemo } from "react";
-import { NotesContext } from "../context/NotesContext";
+import { useMemo } from "react";
+import { useNotes } from "../context/NotesContext";
 
 const NotesCount = () => {
-  const { notes } = useContext(NotesContext);
+  const { notes } = useNotes();
 
   const totalNotes = useMemo(() => {
     return notes.length;
   }, [notes]);
 
-  return <h3>Total Notes: {totalNotes}</h3>;
+  return <h3 className="notes-count">Total Notes: {totalNotes}</h3>;
 };
 
 export default NotesCount;
